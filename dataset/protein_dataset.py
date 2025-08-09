@@ -1,4 +1,7 @@
 import os
+
+from albumentations import ToTensorV2
+
 from global_config import NUM_CLASSES, COLORS_CHANNEL
 import cv2
 import numpy as np
@@ -7,7 +10,7 @@ from torch.utils.data import Dataset
 
 class ProteinDataset(Dataset):
 
-    def __init__(self, df, image_dir, transform, name_target_col):
+    def __init__(self, df, image_dir, name_target_col, transform=None):
         self.df = df
         self.name_target_col = name_target_col
         self.image_dir = image_dir
@@ -36,5 +39,6 @@ class ProteinDataset(Dataset):
             augmented = self.transform(image=image)             #convert to TensorV2
             image = augmented['image']
         else:
-            image = torch.tensor(np.transpose(image, (2, 0, 1)), dtype=torch.float32)
+            # image = torch.tensor(np.transpose(image, (2, 0, 1)), dtype=torch.float32)
+            image = ToTensorV2()(image=image)["image"]
         return image, label_one_hot
