@@ -47,6 +47,8 @@ DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 MEAN_IMAGENET = [0.485, 0.456, 0.406, 0.45]
 STD_IMAGENET = [0.229, 0.224, 0.225, 0.2]
 
+COLORS_CHANNEL = ['red', 'green', 'blue', 'yellow']
+
 SIZE_IMAGENET = [224, 224]
 
 CHANNELS_IMAGE = 4
