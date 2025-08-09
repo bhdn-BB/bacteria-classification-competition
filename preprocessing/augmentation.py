@@ -20,7 +20,6 @@ train_transform = A.Compose([
     ),
     ToTensorV2(),
 ])
-
 val_transform = A.Compose([
     A.Resize(*SIZE_IMAGENET),
     A.Normalize(
