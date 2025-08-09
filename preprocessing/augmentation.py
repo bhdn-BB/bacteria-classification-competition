@@ -14,6 +14,7 @@ train_transform = A.Compose([
     ),
     A.HorizontalFlip(p=0.5),
     A.Rotate(limit=180, p=0.5),
+    A.CLAHE(clip_limit=4.0, tile_grid_size=(8, 8), p=0.75),
     A.Normalize(
         mean=MEAN_IMAGENET,
         std=STD_IMAGENET,
