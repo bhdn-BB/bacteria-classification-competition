@@ -1,5 +1,5 @@
 import os
-from global_config import NUM_CLASSES
+from global_config import NUM_CLASSES, COLORS_CHANNEL
 import cv2
 import numpy as np
 import torch
@@ -25,7 +25,7 @@ class ProteinDataset(Dataset):
         label_one_hot[labels] = 1.0
 
         channels = []
-        for color in ['red', 'green', 'blue', 'yellow']:
+        for color in COLORS_CHANNEL:
             current_path = os.path.join(self.image_dir, f'{image_id}_{color}.png')
             img = cv2.imread(current_path, cv2.IMREAD_GRAYSCALE)
             channels.append(img)
