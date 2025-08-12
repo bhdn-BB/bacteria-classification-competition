@@ -33,6 +33,7 @@ DICT_LABELS = {
 }
 
 ROOT = Path('/kaggle/input/human-protein-atlas-image-classification')
+WORKING_DIR = Path('/kaggle/working')
 
 TRAIN_IMAGE_DIR = ROOT / 'train'
 TEST_IMAGE_DIR = ROOT / 'test'
@@ -40,7 +41,8 @@ TRAIN_LABEL_PATH = ROOT / 'train.csv'
 TEST_LABEL_PATH = ROOT / 'sample_submission.csv'
 TRAIN_TARGET = "Target"
 TEST_TARGET = 'Predicted'
-BATCH_SIZE = 128
+
+
 NUM_CLASSES = len(DICT_LABELS)
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -67,7 +69,4 @@ SIZE_IMAGENET = [224, 224]
 
 CHANNELS_IMAGE = 4
 
-LR = 1e-3
-EPOCHS = 100
-
-MAX_SAMPLES = 3000
+MAX_SAMPLES = 6000
