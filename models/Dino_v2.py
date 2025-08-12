@@ -73,7 +73,7 @@ class DinoV2Classifier:
         args = TrainingArguments(
             output_dir=OUTPUT_DIR,
             save_strategy="epoch",
-            evaluation_strategy="epoch",
+            # evaluation_strategy="epoch",
             learning_rate=lr,
             per_device_train_batch_size=batch_size,
             per_device_eval_batch_size=batch_size,
@@ -84,7 +84,7 @@ class DinoV2Classifier:
             metric_for_best_model=metrics,
             greater_is_better=True,
             fp16=True,
-            gradient_accumulation_steps=16,
+            gradient_accumulation_steps=GRADIENT_ACCUMULATION_STEPS,
         )
         self.trainer = Trainer(
             model=self.model,
