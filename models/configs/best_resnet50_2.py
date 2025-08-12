@@ -1,0 +1,4 @@
+
+EPOCHS = 20
+BATCH_SIZE = 128
+LR = 3E-4
