@@ -8,7 +8,7 @@ from transformers import (
     Trainer,
     TrainingArguments
 )
-from callbacks.hf_wandb_checkpoint_callback import WandbCheckpointCallback
+from callbacks.hf_wandb_checkpoint_callback import HfWandbCheckpointCallback
 from global_config import NUM_CLASSES
 from configs.best_dino_v2 import *
 
@@ -94,7 +94,7 @@ class DinoV2Classifier:
             compute_metrics=self.compute_metrics,
             data_collator=self.my_data_collator,
 
-            callbacks=[WandbCheckpointCallback()]
+            callbacks=[HfWandbCheckpointCallback()]
         )
         self.trainer.train()
         wandb.finish()
