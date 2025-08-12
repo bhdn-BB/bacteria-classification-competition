@@ -4,7 +4,7 @@ import torch.nn as nn
 from torch import optim
 from torchvision.models import wide_resnet50_2, Wide_ResNet50_2_Weights
 from tqdm import tqdm
-from callbacks.wandb_checkpoint_callback import WandbCheckpointCallback
+from callbacks.hf_wandb_checkpoint_callback import WandbCheckpointCallback
 
 class WideResNet50_2:
     def __init__(
