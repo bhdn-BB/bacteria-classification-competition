@@ -5,6 +5,8 @@ from torch import optim
 from torchvision.models import wide_resnet50_2, Wide_ResNet50_2_Weights
 from tqdm import tqdm
 from callbacks.wandb_checkpoint_callback import WandbCheckpointCallback
+from models.configs.best_resnet50_2 import NUM_FREEZE_LAYER
+
 
 class WideResNet50_2:
     def __init__(
@@ -12,12 +14,10 @@ class WideResNet50_2:
             num_classes,
             channels_image,
             device,
-            num_freeze_backbone=0,
     ):
         self.num_classes = num_classes
         self.channels_image = channels_image
         self.device = device
-        self.num_freeze_backbone = num_freeze_backbone
         weights = Wide_ResNet50_2_Weights.IMAGENET1K_V1
         model = wide_resnet50_2(weights=weights)
         old_conv = model.conv1
@@ -35,19 +35,10 @@ class WideResNet50_2:
                 new_conv.weight[:, 3:4, :, :] = old_conv.weight.mean(dim=1, keepdim=True)
         model.conv1 = new_conv
         model.fc = nn.Linear(model.fc.in_features, num_classes)
-        if num_freeze_backbone > 0:
-            backbone_blocks = [
-                model.conv1,
-                model.bn1,
-                model.layer1,
-                model.layer2,
-                model.layer3,
-                model.layer4
-            ]
-            freeze_blocks = backbone_blocks[:num_freeze_backbone]
-            for block in freeze_blocks:
-                for param in block.parameters():
-                    param.requires_grad = False
+        layer_to_freeze = model.layer3
+        params = list(layer_to_freeze.parameters())
+        for p in params[:NUM_FREEZE_LAYER]:
+            p.requires_grad = False
         self.model = model.to(device)
     def fit(
             self,
