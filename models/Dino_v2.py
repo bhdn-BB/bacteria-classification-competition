@@ -73,8 +73,11 @@ class DinoV2Classifier:
         args = TrainingArguments(
             output_dir=OUTPUT_DIR,
             save_strategy="epoch",
-            # evaluation_strategy="epoch",
+            eval_strategy="steps",
+            eval_steps=EVAL_STEPS,
             learning_rate=lr,
+            lr_scheduler_type=SCHEDULER,
+            warmup_ratio=WARM_SCHEDULER,
             per_device_train_batch_size=batch_size,
             per_device_eval_batch_size=batch_size,
             num_train_epochs=epochs,
