@@ -84,7 +84,7 @@ class DinoV2Classifier:
             weight_decay=WEIGHT_DECAY,
             logging_dir= OUTPUT_DIR,
             logging_steps=LOG_INTERVAL,
-            metric_for_best_model=metrics,
+            metric_for_best_model=METRICS,
             greater_is_better=True,
             fp16=True,
             gradient_accumulation_steps=GRADIENT_ACCUMULATION_STEPS,
