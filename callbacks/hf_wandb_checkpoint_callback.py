@@ -49,7 +49,13 @@ class HfWandbCheckpointCallback(TrainerCallback):
             wandb.log_artifact(artifact)
             print(f"[W&B] Logged {artifact_name.upper()} checkpoint (epoch {epoch}, {self.metric_name}={metric_value})")
 
-    def on_epoch_end(self, args, state, control, **kwargs):
+    def on_epoch_end(
+            self,
+            args: TrainingArguments,
+            state: TrainerState,
+            control: TrainerControl,
+            **kwargs
+    ) -> None:
         trainer = kwargs.get("trainer")
         model = trainer.model
         metrics = state.log_history[-1]
@@ -76,5 +82,11 @@ class HfWandbCheckpointCallback(TrainerCallback):
                 is_best=True
             )
 
-    def on_init_end(self, args, state, control, **kwargs):
+    def on_init_end(
+            self,
+            args: TrainingArguments,
+            state: TrainerState,
+            control: TrainerControl,
+            **kwargs
+    ):
         pass
