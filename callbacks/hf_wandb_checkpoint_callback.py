@@ -13,8 +13,8 @@ class HfWandbCheckpointCallback(TrainerCallback):
     def __init__(
             self,
             save_dir: str = "checkpoints",
-            metric_name="eval_f1_macro",
-            greater_is_better=True
+            metric_name: str="eval_f1_macro",
+            greater_is_better: bool=True
     ):
         self.save_dir = save_dir
         os.makedirs(self.save_dir, exist_ok=True)
